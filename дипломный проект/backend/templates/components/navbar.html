@@ -1,0 +1,136 @@
+<nav class="container card container-fluid navbar navbar-expand-lg navbar-light bg-body-tertiary">
+    <a class="navbar-brand" href="{% url "home_l" %}">Домашняя страница</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <ul style="margin-left: 1%" class="navbar-nav navbar-collapse collapse" id="navbarSupportedContent">
+        <li class="dropend">
+            <a class="nav-link dropdown" role="button" data-bs-toggle="dropdown">
+                Профиль
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+                <li>
+                    <i class="btn btn-sm btn-dark bg-opacity-50 badge rounded-pill">аккаунт:
+                        {% if user.is_authenticated %}
+                            {{ user.username }}
+                        {% else %}
+                            аноним
+                        {% endif %}
+
+                    </i>
+                    <strong class="dropdown-header">Профили пользователей</strong>
+                    {% if user.is_authenticated %}
+
+                        <a class="dropdown-item text-danger" href="{% url 'logout' %}">
+                            <i class="fa-solid fa-door-open m-0 p-1"></i>
+                            выйти из аккаунта
+                        </a>
+                    {% else %}
+                        <a class="dropdown-item text-warning" href="{% url 'register' %}">
+                            <i class="fa-solid fa-circle-plus m-0 p-1"></i>
+                            регистрация новых пользователей
+                        </a>
+                        <a class="dropdown-item text-primary" href="{% url 'login' %}">
+                            <i class="fa-solid fa-list m-0 p-1"></i>
+                            войти в аккаунт
+                        </a>
+                    {% endif %}
+                </li>
+            </ul>
+        </li>
+
+        <li class="dropend">
+            <a class="nav-link dropdown" role="button" data-bs-toggle="dropdown">
+                Предложения идей
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+                <li>
+                    <strong class="dropdown-header">Новостной раздел</strong>
+                    <a class="dropdown-item" href="{% url "list_ideas" %}">
+                        <i class="fa-solid fa-newspaper text-warning m-0 p-1"></i>
+                        Список всех идей
+                    </a>
+                    <a class="dropdown-item" href="{% url "display_top_idea" %}">
+                        <i class="fa-solid fa-newspaper text-warning m-0 p-1"></i>
+                        Рейтинг идей
+                    </a>
+                    {% if user.is_authenticated %}
+                        <a class="dropdown-item" href="{% url "idea_create" %}">
+                            <i class="fa-solid fa-newspaper text-warning m-0 p-1"></i>
+                            Опубликовать идею
+                        </a>
+                    {% endif %}
+                </li>
+            </ul>
+        </li>
+        <li class="dropend">
+            <a class="nav-link dropdown" role="button" data-bs-toggle="dropdown">
+                Резюме
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+                <li>
+                    <strong class="dropdown-header">Новостной раздел</strong>
+                    <a class="dropdown-item" href="{% url "resume_create" %}">
+                        <i class="fa-solid fa-newspaper text-warning m-0 p-1"></i>
+                        Создать резюме
+                    </a>
+                    <a class="dropdown-item" href="{% url "resume_list" %}">
+                        <i class="fa-solid fa-newspaper text-warning m-0 p-1"></i>
+                        Список всех резюме
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="dropend">
+            <a class="nav-link dropdown" role="button" data-bs-toggle="dropdown">
+                Вакансия
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+                <li>
+                    <strong class="dropdown-header">Новостной раздел</strong>
+                    <a class="dropdown-item" href="{% url "vacancy_create" %}">
+                        <i class="fa-solid fa-newspaper text-warning m-0 p-1"></i>
+                        Создать вакансии
+                    </a>
+                    <a class="dropdown-item" href="{% url "vacancy_list" %}">
+                        <i class="fa-solid fa-newspaper text-warning m-0 p-1"></i>
+                        Список всех вакансии
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="dropend">
+            <a class="nav-link dropdown" role="button" data-bs-toggle="dropdown">
+                Онлайн чат
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+
+                <li>
+                    <strong class="dropdown-header">Новостной раздел</strong>
+                    <a class="dropdown-item" href="/1">
+                        <i class="fa-solid fa-newspaper text-warning m-0 p-1"></i>
+                        Перейти в чат
+                    </a>
+                </li>
+
+            </ul>
+        </li>
+        <li class="dropend">
+            <a class="nav-link dropdown" role="button" data-bs-toggle="dropdown">
+                Криптовалюта
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+
+                <li>
+                    <strong class="dropdown-header">Новостной раздел</strong>
+                    <a class="dropdown-item" href="/market">
+                        <i class="fa-solid fa-newspaper text-warning m-0 p-1"></i>
+                        Посмотреть курс
+                    </a>
+                </li>
+
+            </ul>
+        </li>
+
+    </ul>
+</nav>

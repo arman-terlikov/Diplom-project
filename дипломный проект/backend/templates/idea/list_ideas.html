@@ -1,0 +1,122 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <style>
+
+body {
+  background: url("https://pibig.info/uploads/posts/2021-05/1620767016_8-pibig_info-p-tumannii-les-oboi-priroda-krasivo-foto-8.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  overflow-x: hidden;
+}
+        * {
+  box-sizing: border-box;
+}
+
+    </style>
+</head>
+
+<body>
+{% include "components/navbar.html" %}
+<h1 style="text-align: center">Все идеи</h1>
+
+
+<div  class="container my-2 mb-2">
+<nav aria-label="Page navigation example p-2 m-1">
+  <ul class="pagination pagination-sm justify-content-center">
+    {% if current_page.number != 1 %}
+        <li class="page-item">
+            <a href="?page=1" class="page-link">&laquo;&laquo; Первая</a>
+        </li>
+    {% endif %}
+
+  {% if current_page.has_previous %}
+    <li class="page-item">
+      <a href="?page={{ current_page.previous_page_number }}" class="page-link">&laquo; Предыдущая</a>
+    </li>
+      {% else %}
+      <li class="page-item disabled">
+      <a href="#" class="page-link">&laquo; Предыдущая</a>
+    </li>
+  {% endif %}
+
+    {% for page_number in current_page.paginator.page_range %}
+        {% if page_number == current_page.number %}
+            <li class="page-item active"><a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a></li>
+        {% else %}
+            <li class="page-item"><a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a></li>
+        {% endif %}
+    {% endfor %}
+
+    {% if current_page.has_next %}
+        <li class="page-item">
+            <a href="?page={{ current_page.next_page_number }}" class="page-link">Следующая &raquo;</a>
+        </li>
+    {% else %}
+        <li class="page-item disabled">
+            <a href="#" class="page-link">Следующая &raquo;</a>
+        </li>
+    {% endif %}
+
+    {% if current_page.number != current_page.paginator.num_pages %}
+        <li class="page-item">
+            <a href="?page={{ current_page.paginator.num_pages }}" class="page-link">Последняя &raquo;&raquo;</a>
+        </li>
+    {% endif %}
+
+  </ul>
+</nav>
+</div>
+<div class="row row-cols-1 row-cols-lg-3 justify-content-between g-4 py-5">
+        {% for idea in current_page %}
+          <div style="width: 450px; padding-bottom: 5%" class="col">
+            <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg">
+              <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+                {% if idea.image %}
+                    <img src="{% static idea.image.url %}" alt="image"
+                         class="img-thumbnail img-fluid" width="400"/>
+                {% endif %}
+                <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">{{ idea.title }}</h3>
+                  <p class="lead">{{ idea.description }}</p>
+                <ul class="d-flex list-unstyled mt-auto">
+                  <li class="me-auto">
+                    <img src="https://github.com/twbs.png" alt="Bootstrap" width="32" height="32" class="rounded-circle border border-white">
+                  </li>
+                  <li class="d-flex align-items-center me-3">
+                    <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#geo-fill"></use></svg>
+                    <small>{{ idea.author.username }}</small>
+                  </li>
+                  <li class="d-flex align-items-center">
+                    <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#calendar3"></use></svg>
+                    <small>{{ idea.datetime }}</small>
+                  </li>
+                </ul>
+                <div class="input-group">
+                    <a class="btn btn-lg btn-light w-75" href="{% url 'idea_detail' idea.id %}">Подробнее</a>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+ </div>
+
+
+
+
+
+{% include "components/footer.html" %}
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+
+</body></html>
